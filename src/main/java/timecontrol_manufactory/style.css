@@ -1,0 +1,15 @@
+.my-time-control {
+    -base-color: blue;
+    -fx-background-color: white;
+}
+
+.my-time-control .editable-time {
+    -fx-background-color: #e1e1e1;
+    -fx-font-size: 50px;
+    -fx-min-width: 70px;
+    -fx-max-width: 200px;
+}
+.my-time-control .caption-label {
+    -fx-font-color: #abcc86;
+    -fx-font-size: 35px;
+}
