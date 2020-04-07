@@ -1,11 +1,15 @@
 package timecontrol_manufactory;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.util.converter.LocalTimeStringConverter;
 import javafx.util.converter.TimeStringConverter;
 
@@ -28,6 +32,8 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
     private TextField editableTime;
     // auf labenl kann text und icon sein, text kann nicht mit icon gemacht werden
     private Label captionLabel;
+    private Rectangle hoursBackground;
+    private Rectangle minutesBackground;
 
     MyTimeSkin(MyTimeControl control) {
         super(control);
@@ -49,10 +55,21 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
 
         captionLabel = new Label("Neuer Alarm");
         captionLabel.getStyleClass().add("caption-label");
+
+        hoursBackground = new Rectangle(60, 70);
+        hoursBackground.getStyleClass().add("digit-background");
+        minutesBackground = new Rectangle(60, 70);
+        minutesBackground.getStyleClass().add("digit-background");
     }
 
     private void layoutParts() {
-        getChildren().addAll(new VBox(captionLabel,editableTime));
+
+        HBox background = new HBox(hoursBackground, minutesBackground);
+        background.setAlignment(Pos.CENTER);
+        background.setSpacing(15);
+        background.setTranslateX(-12);
+        
+        getChildren().addAll(new VBox(captionLabel, new StackPane(background, editableTime)));
     }
 
     private void setupValueChangeListeners() {
