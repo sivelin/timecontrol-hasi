@@ -42,7 +42,7 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
     }
 
     private void initializeSelf() {
-        getSkinnable().loadFonts("/fonts/Lato/Lato-Reg.ttf", "/fonts/Lato/Lato-Lig.ttf", "/fonts/ds_digitsl/DS-DIGI.TTF");
+        getSkinnable().loadFonts("/fonts/Lato/Lato-Reg.ttf", "/fonts/Lato/Lato-Lig.ttf", "/fonts/ds_digital/DS-DIGI.TTF");
         getSkinnable().addStylesheetFiles("style.css");
     }
 
