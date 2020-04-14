@@ -4,14 +4,11 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.util.converter.LocalTimeStringConverter;
-import javafx.util.converter.TimeStringConverter;
 
 // default layout von skinbase wie stickpane
 class MyTimeSkin extends SkinBase<MyTimeControl> {
@@ -32,8 +29,8 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
     private TextField editableTime;
     // auf labenl kann text und icon sein, text kann nicht mit icon gemacht werden
     private Label captionLabel;
-    private Rectangle hoursBackground;
-    private Rectangle minutesBackground;
+    private Rectangle alarmClock;
+    private Rectangle clockHolder;
 
     MyTimeSkin(MyTimeControl control) {
         super(control);
@@ -45,7 +42,7 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
     }
 
     private void initializeSelf() {
-        getSkinnable().loadFonts("/fonts/Lato/Lato-Reg.ttf", "/fonts/Lato/Lato-Lig.ttf");
+        getSkinnable().loadFonts("/fonts/Lato/Lato-Reg.ttf", "/fonts/Lato/Lato-Lig.ttf", "/fonts/ds_digitsl/DS-DIGI.TTF");
         getSkinnable().addStylesheetFiles("style.css");
     }
 
@@ -56,20 +53,22 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
         captionLabel = new Label("Neuer Alarm");
         captionLabel.getStyleClass().add("caption-label");
 
-        hoursBackground = new Rectangle(60, 70);
-        hoursBackground.getStyleClass().add("digit-background");
-        minutesBackground = new Rectangle(60, 70);
-        minutesBackground.getStyleClass().add("digit-background");
+        alarmClock = new Rectangle(150, 70);
+        alarmClock.getStyleClass().add("digit-background");
+
+        clockHolder = new Rectangle(75, 10);
+        clockHolder.setX(70);
+        clockHolder.getStyleClass().add("clock-holder");
+
     }
 
     private void layoutParts() {
 
-        HBox background = new HBox(hoursBackground, minutesBackground);
+        VBox background = new VBox(alarmClock, clockHolder);
         background.setAlignment(Pos.CENTER);
-        background.setSpacing(15);
         background.setTranslateX(-12);
         
-        getChildren().addAll(new VBox(captionLabel, new StackPane(background, editableTime)));
+        getChildren().addAll(new VBox(captionLabel, new StackPane( background, editableTime)));
     }
 
     private void setupValueChangeListeners() {

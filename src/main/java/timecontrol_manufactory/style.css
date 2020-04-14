@@ -1,6 +1,7 @@
 .my-time-control {
     -base-color: blue;
     -fx-background-color: white;
+    -fx-font-family: 'DS-Digital';
 }
 
 .my-time-control .editable-time {
@@ -8,12 +9,40 @@
     -fx-background-color: transparent;
     -fx-min-width: 70px;
     -fx-max-width: 200px;
+    -fx-font-family: 'DS-Digital';
+    /*-fx-background-color: #515151;
+    -fx-border-style: inset;
+    -fx-border-width: 25px;
+    -fx-border-color: #AE4444;
+    -fx-border-radius: 10;*/
+}
+.my-time-control .caption-label {
+    -fx-font-size: 35px;
+    -fx-font-family: 'DS-Digital';
+}
+
+.my-time-control .digit-background {
+    -fx-fill: #515151;
+    -fx-stroke-type: outside;
+    -fx-stroke-width: 25px;
+    -fx-stroke: #AE4444;
+    -fx-arc-height: 10.0d;
+    -fx-arc-width: 10.0d;
+}
+
+.my-time-control .clock-holder {
+    -fx-fill: #AE4444;
+
+}
+/*
+.my-time-control .editable-time {
+    -fx-background-color: #e1e1e1;
+    -fx-font-size: 100px;
+    -fx-alignment: center;
+    -fx-max-width: 150px;
 }
 .my-time-control .caption-label {
     -fx-font-color: #abcc86;
     -fx-font-size: 35px;
-}
-
-.my-time-control .digit-background {
-    -fx-fill: grey;
-}
+    -fx-progress-color: #F00;
+}*/
