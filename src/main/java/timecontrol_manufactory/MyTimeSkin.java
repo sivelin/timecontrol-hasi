@@ -4,13 +4,11 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.util.converter.LocalTimeStringConverter;
 
-// default layout von skinbase wie stickpane
 class MyTimeSkin extends SkinBase<MyTimeControl> {
     // wird spaeter gebraucht
     private static final int ICON_SIZE  = 12;
@@ -25,11 +23,9 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
     //                                                               true, false));
 
 
-    // 4
     private TextField editableTime;
-    // auf labenl kann text und icon sein, text kann nicht mit icon gemacht werden
     private Label captionLabel;
-    private Rectangle alarmClock;
+    private Rectangle clockFace;
     private Rectangle clockHolder;
 
     MyTimeSkin(MyTimeControl control) {
@@ -53,21 +49,23 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
         captionLabel = new Label("Neuer Alarm");
         captionLabel.getStyleClass().add("caption-label");
 
-        alarmClock = new Rectangle(150, 70);
-        alarmClock.getStyleClass().add("digit-background");
+        clockFace = new Rectangle(170, 65);
+        clockFace.getStyleClass().add("digit-background");
 
-        clockHolder = new Rectangle(75, 10);
+        clockHolder = new Rectangle(75, 6);
         clockHolder.setX(70);
         clockHolder.getStyleClass().add("clock-holder");
 
     }
 
     private void layoutParts() {
+        VBox background = new VBox(clockFace, clockHolder);
 
-        VBox background = new VBox(alarmClock, clockHolder);
+        //position content in the center
         background.setAlignment(Pos.CENTER);
-        background.setTranslateX(-12);
-        
+        background.setTranslateY(5);
+        editableTime.setAlignment(Pos.CENTER);
+
         getChildren().addAll(new VBox(captionLabel, new StackPane( background, editableTime)));
     }
 
@@ -75,9 +73,7 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
     }
 
     private void setupBindings() {
-
         // todo forgiving format
-        // getSkinnable wichtig, new LocalTimeStringConverter, damits mit textProperty funktioniert
         editableTime.textProperty().bindBidirectional(getSkinnable().actualTimeProperty(), new LocalTimeStringConverter());
 
         captionLabel.textProperty().bind(getSkinnable().captionProperty());

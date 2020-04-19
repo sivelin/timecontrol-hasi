@@ -7,9 +7,8 @@
 .my-time-control .editable-time {
     -fx-font-size: 60px;
     -fx-background-color: transparent;
-    -fx-min-width: 70px;
-    -fx-max-width: 200px;
     -fx-font-family: 'DS-Digital';
+    -fx-text-fill: white;
 }
 .my-time-control .caption-label {
     -fx-font-size: 35px;
@@ -19,7 +18,7 @@
 .my-time-control .digit-background {
     -fx-fill: #515151;
     -fx-stroke-type: outside;
-    -fx-stroke-width: 25px;
+    -fx-stroke-width: 10px;
     -fx-stroke: -base-color;
     -fx-arc-height: 10.0d;
     -fx-arc-width: 10.0d;
