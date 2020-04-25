@@ -10,6 +10,14 @@
     -fx-font-family: 'DS-Digital';
     -fx-text-fill: white;
 }
+
+.my-time-control .readonly-time {
+    -fx-font-size: 60px;
+    -fx-background-color: transparent;
+    -fx-font-family: 'DS-Digital';
+    -fx-text-fill: #fffbb1;
+}
+
 .my-time-control .caption-label {
     -fx-font-size: 35px;
     -fx-font-family: 'Lato';

@@ -3,10 +3,7 @@ package timecontrol_manufactory;
 import java.time.LocalTime;
 import java.util.regex.Pattern;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import javafx.scene.text.Font;
@@ -27,7 +24,7 @@ public class MyTimeControl extends Control {
     // all properties
     private final ObjectProperty<LocalTime> actualTime = new SimpleObjectProperty<>();
     private final StringProperty caption = new SimpleStringProperty();
-
+    private final BooleanProperty editable = new SimpleBooleanProperty();
 
 
     public MyTimeControl(SkinType skinType) {
@@ -83,5 +80,17 @@ public class MyTimeControl extends Control {
 
     public void setCaption(String caption) {
         this.caption.set(caption);
+    }
+
+    public boolean isEditable() {
+        return editable.get();
+    }
+
+    public BooleanProperty editableProperty() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable.set(editable);
     }
 }

@@ -88,6 +88,7 @@ public class DemoPane extends BorderPane {
         // 3 binding
         businessControl.actualTimeProperty().bindBidirectional(pm.startTimeProperty());
         businessControl.captionProperty().bind(pm.labelProperty());
+        businessControl.editableProperty().bind(pm.readOnlyProperty().not());
     }
 
 }

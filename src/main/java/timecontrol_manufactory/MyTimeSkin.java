@@ -24,6 +24,8 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
 
 
     private TextField editableTime;
+    private Label readonlyTime;
+
     private Label captionLabel;
     private Rectangle clockFace;
     private Rectangle clockHolder;
@@ -45,6 +47,13 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
     private void initializeParts() {
         editableTime = new TextField("To be replaced");
         editableTime.getStyleClass().add("editable-time");
+        editableTime.setVisible(getSkinnable().isEditable());
+
+
+        readonlyTime = new Label();
+        readonlyTime.getStyleClass().add("readonly-time");
+        readonlyTime.setVisible(!getSkinnable().isEditable());
+
 
         captionLabel = new Label("Neuer Alarm");
         captionLabel.getStyleClass().add("caption-label");
@@ -66,15 +75,20 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
         background.setTranslateY(5);
         editableTime.setAlignment(Pos.CENTER);
 
-        getChildren().addAll(new VBox(captionLabel, new StackPane( background, editableTime)));
+        getChildren().addAll(new VBox(captionLabel, new StackPane( background, readonlyTime, editableTime)));
     }
 
     private void setupValueChangeListeners() {
+        getSkinnable().editableProperty().addListener((observable, oldValue, newValue) -> {
+            editableTime.setVisible(newValue);
+            readonlyTime.setVisible(!newValue);
+        });
     }
 
     private void setupBindings() {
         // todo forgiving format
         editableTime.textProperty().bindBidirectional(getSkinnable().actualTimeProperty(), new LocalTimeStringConverter());
+        readonlyTime.textProperty().bind(getSkinnable().actualTimeProperty().asString());
 
         captionLabel.textProperty().bind(getSkinnable().captionProperty());
     }
