@@ -36,3 +36,15 @@
     -fx-fill: -base-color;
 
 }
+
+.my-time-control:mandatory .editable-time {
+    -fx-text-fill: orange;
+}
+
+.my-time-control:invalid .editable-time {
+    -fx-text-fill: red;
+}
+
+.my-time-control:convertible .editable-time {
+    -fx-text-fill: green;
+}

@@ -4,10 +4,12 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
-import javafx.util.converter.LocalTimeStringConverter;
+import javafx.stage.Popup;
 
 class MyTimeSkin extends SkinBase<MyTimeControl> {
     // wird spaeter gebraucht
@@ -25,16 +27,18 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
 
     private TextField editableTime;
     private Label readonlyTime;
-
     private Label captionLabel;
     private Rectangle clockFace;
     private Rectangle clockHolder;
+    private Popup popup;
+    private Pane dropDownChooser;
 
     MyTimeSkin(MyTimeControl control) {
         super(control);
         initializeSelf();
         initializeParts();
         layoutParts();
+        setUpEventHandlers();
         setupValueChangeListeners();
         setupBindings();
     }
@@ -78,6 +82,25 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
         getChildren().addAll(new VBox(captionLabel, new StackPane( background, readonlyTime, editableTime)));
     }
 
+    private void setUpEventHandlers() {
+        //handle user input
+        editableTime.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+            switch(keyEvent.getCode()) {
+                case ENTER:
+                    getSkinnable().convert();
+                    break;
+                case UP:
+                    getSkinnable().increaseHour();
+                    keyEvent.consume();
+                    break;
+                case DOWN:
+                    getSkinnable().decreaseHour();
+                    keyEvent.consume();
+                    break;
+            }
+        });
+    }
+
     private void setupValueChangeListeners() {
         getSkinnable().editableProperty().addListener((observable, oldValue, newValue) -> {
             editableTime.setVisible(newValue);
@@ -86,10 +109,8 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
     }
 
     private void setupBindings() {
-        // todo forgiving format
-        editableTime.textProperty().bindBidirectional(getSkinnable().actualTimeProperty(), new LocalTimeStringConverter());
+        editableTime.textProperty().bindBidirectional(getSkinnable().userFacingStringProperty());
         readonlyTime.textProperty().bind(getSkinnable().actualTimeProperty().asString());
-
         captionLabel.textProperty().bind(getSkinnable().captionProperty());
     }
 }
