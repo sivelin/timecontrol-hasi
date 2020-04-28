@@ -42,7 +42,7 @@
 }
 
 .my-time-control:invalid .editable-time {
-    -fx-text-fill: red;
+    -fx-text-fill: #AE4444;;
 }
 
 .my-time-control:convertible .editable-time {
